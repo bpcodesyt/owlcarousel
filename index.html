@@ -5,14 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project Owl Carousel</title>
-    <link rel="stylesheet" href="./owl.carousel.min.css">
-    <link rel="stylesheet" href="./owl.theme.default.min.css">
+    <link rel="stylesheet" href="./css/owl.carousel.min.css">
+    <link rel="stylesheet" href="./css/owl.theme.default.min.css">
     <style>
         * {
             box-sizing: border-box;
         }
 
         body {
+            margin: 0;
             font-family: Tahoma, Geneva, sans-serif;
         }
 
@@ -21,19 +22,46 @@
             text-align: center;
         }
 
-        .slider {
-            padding: 30px;
+        h1 {
+            font-size: 64px;
         }
 
-        img {
-            height: 450px;
+        .sliders,
+        .owl-stage-outer,
+        .owl-stage,
+        .owl-item {
+            height: 100%;
+        }
+
+        .slider {
+            height: 100%;
+        }
+
+        .slider img {
+            width: 100%;
+            height: 100%;
         }
 
         .owl-nav {
             position: absolute;
             width: 100%;
             font-size: 50px;
-            top: 250px;
+            top: 45%;
+            z-index: 4;
+        }
+
+        .owl-nav button {
+            font-size: 32px;
+            background: transparent;
+            border: 1px solid #fff;
+            margin: 5px;
+            border-radius: 50%;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .owl-nav button:focus {
+            outline: none;
         }
 
         .owl-nav .owl-next {
@@ -42,8 +70,12 @@
         }
 
         .owl-dots {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
             display: flex;
             justify-content: center;
+            z-index: 4;
         }
 
         .owl-dots .owl-dot {
@@ -57,48 +89,104 @@
         .owl-dots .owl-dot.active {
             background: #000000 !important;
         }
+
+        section {
+            height: 100vh;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .section .overlay {
+            position: absolute;
+            top: 0;
+            background-color: rgba(0, 0, 0, 0.3);
+            color: #fff;
+            width: 100%;
+            height: 100%;
+            z-index: 3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .section {
+            background-color: #e3e3e3;
+        }
     </style>
 </head>
 
 <body>
-    <header>
-        <h1>Owl Carousel</h1>
-    </header>
-    <div class="sliders owl-carousel">
-        <div class="slider">
-            <img src="./images/historiccity.jpg" alt="">
+
+    <section class="section">
+        <div class="sliders owl-carousel">
+            <div class="slider">
+                <img src="./images/historiccity.jpg" alt="">
+            </div>
+            <div class="slider">
+                <img src="./images/mountain.jpg" alt="">
+            </div>
+            <div class="slider">
+                <img src="./images/office.jpg" alt="">
+            </div>
+            <div class="slider">
+                <img src="./images/queue2.jpg" alt="">
+            </div>
+            <div class="slider">
+                <img src="./images/queue.jpg" alt="">
+            </div>
         </div>
-        <div class="slider">
-            <img src="./images/mountain.jpg" alt="">
+        <div class="overlay">
+            <h1>Hello,This is Owl Carousel</h1>
         </div>
-        <div class="slider">
-            <img src="./images/office.jpg" alt="">
+
+        <div class="owl-nav">
+            <button type="button" role="presentation" class="owl-prev">
+                <span aria-label="Previous"> &#60; </span>
+            </button>
+            <button type="button" role="presentation" class="owl-next">
+                <span aria-label="Next">&#62;</span>
+            </button>
         </div>
-        <div class="slider">
-            <img src="./images/queue2.jpg" alt="">
+        <div id='carousel-custom-dots' class='owl-dots'>
+            <a class='owl-dot active'></a>
+            <a class='owl-dot'></a>
+            <a class='owl-dot'></a>
+            <a class='owl-dot'></a>
+            <a class='owl-dot'></a>
         </div>
-        <div class="slider">
-            <img src="./images/desk.jpg" alt="">
-        </div>
-        <div class="slider">
-            <img src="./images/queue.jpg" alt="">
-        </div>
-    </div>
+    </section>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <script src="./owl.carousel.min.js"></script>
+    <script src="./js/owl.carousel.min.js"></script>
     <script>
         $(document).ready(function () {
-            $(".sliders").owlCarousel({
+            const owl = $(".sliders").owlCarousel({
                 loop: true,
-                items: 3,
-                nav: true,
-                dots: true,
-                dotsEach:2,
+                items: 1,
+                nav: false,
+                dots: false,
+                dotsContainer: '#carousel-custom-dots',
                 mouseDrag: true,
                 autoplay: true,
-                autoplayTimeout: 1000,
+                autoplayTimeout: 3000,
                 autoplayHoverPause: false
+            });
+            $('.owl-next').click(function () {
+                owl.trigger('next.owl.carousel');
+            })
+            // Go to the previous item
+            $('.owl-prev').click(function () {
+                // With optional speed parameter
+                // Parameters has to be in square bracket '[]'
+                owl.trigger('prev.owl.carousel', [300]);
+            })
+            owl.on('changed.owl.carousel', function (slider) {
+                let index = slider.item.index;
+                $('.owl-dots .owl-dot').removeClass('active');
+                $('.owl-dots .owl-dot:nth-child('+(index-2)+')').addClass('active');
+            })
+            $('.owl-dot').click(function () {
+                owl.trigger('to.owl.carousel', [$(this).index(), 300]);
             });
         });
     </script>
