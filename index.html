@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Owl Carousel</title>
+    <link rel="stylesheet" href="./owl.carousel.min.css">
+    <link rel="stylesheet" href="./owl.theme.default.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Tahoma, Geneva, sans-serif;
+        }
+
+        header {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .slider {
+            padding: 30px;
+        }
+
+        img {
+            height: 450px;
+        }
+
+        .owl-nav {
+            position: absolute;
+            width: 100%;
+            font-size: 50px;
+            top: 250px;
+        }
+
+        .owl-nav .owl-next {
+            position: absolute;
+            right: 0px;
+        }
+
+        .owl-dots {
+            display: flex;
+            justify-content: center;
+        }
+
+        .owl-dots .owl-dot {
+            height: 15px;
+            width: 15px;
+            border-radius: 50%;
+            margin: 10px 10px 50px 10px;
+            background: #e3e3e3 !important;
+        }
+
+        .owl-dots .owl-dot.active {
+            background: #000000 !important;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Owl Carousel</h1>
+    </header>
+    <div class="sliders owl-carousel">
+        <div class="slider">
+            <img src="./images/historiccity.jpg" alt="">
+        </div>
+        <div class="slider">
+            <img src="./images/mountain.jpg" alt="">
+        </div>
+        <div class="slider">
+            <img src="./images/office.jpg" alt="">
+        </div>
+        <div class="slider">
+            <img src="./images/queue2.jpg" alt="">
+        </div>
+        <div class="slider">
+            <img src="./images/desk.jpg" alt="">
+        </div>
+        <div class="slider">
+            <img src="./images/queue.jpg" alt="">
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="./owl.carousel.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".sliders").owlCarousel({
+                loop: true,
+                items: 3,
+                nav: true,
+                dots: true,
+                dotsEach:2,
+                mouseDrag: true,
+                autoplay: true,
+                autoplayTimeout: 1000,
+                autoplayHoverPause: false
+            });
+        });
+    </script>
+</body>
+
+</html>
